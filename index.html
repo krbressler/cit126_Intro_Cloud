@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CIT 126: Cloud Computing Fundamentals - CSN Portal</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#0d4a6b',
+            accent: '#f26419',
+            customBg: '#f0f7fb',
+            primaryHover: '#0a3a54',
+            accentHover: '#d85310'
+          }
+        }
+      }
+    }
+  </script>
+  
+  <!-- FontAwesome for High Quality Academic & Cloud Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    :root {
+      --user-primary: #0d4a6b;
+      --user-accent: #f26419;
+      --user-background: #f0f7fb;
+    }
+
+    /* Premium interactive states */
+    .focusable:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-visible, button:focus-visible {
+      outline: 3px solid var(--user-accent);
+      outline-offset: 2px;
+    }
+
+    /* Custom elegant animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in {
+      animation: fadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+
+    /* Custom Scrollbars */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f0f7fb;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+  </style>
+</head>
+<body class="bg-[#f0f7fb] text-slate-800 min-h-screen flex flex-col font-sans antialiased">
+
+  <!-- ACCESSIBILITY SKIP LINK -->
+  <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-[#f26419] text-white px-4 py-2 rounded-lg shadow-xl z-50 transition-all">
+    Skip to main content
+  </a>
+
+  <!-- ARIA LIVE REGION FOR AT ANNOUNCEMENTS -->
+  <div id="aria-announcer" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- HEADER -->
+  <header class="bg-[#0d4a6b] text-white shadow-md border-b-4 border-[#f26419]">
+    <div class="max-w-7xl mx-auto px-4 py-5 sm:py-6 flex flex-col md:flex-row justify-between items-center gap-4">
+      <div class="flex items-center gap-4 text-center md:text-left flex-col sm:flex-row">
+        <div class="bg-white text-[#0d4a6b] p-3 rounded-xl shadow-inner flex items-center justify-center w-14 h-14">
+          <i class="fa-solid fa-cloud text-3xl text-sky-700"></i>
+        </div>
+        <div>
+          <span class="bg-[#f26419] text-white text-[10px] font-extrabold tracking-widest uppercase px-3 py-0.5 rounded-full">
+            College of Southern Nevada
+          </span>
+          <h1 class="text-xl sm:text-2xl font-extrabold tracking-tight mt-1">CIT 126: Cloud Computing Fundamentals</h1>
+          <p class="text-xs sm:text-sm text-blue-200 font-semibold">Professor Karen Ahern &middot; Curriculum Portfolio Directory</p>
+        </div>
+      </div>
+
+      <!-- Quick Platform Badge -->
+      <div class="flex items-center gap-2.5 bg-slate-900/30 px-4 py-2 rounded-xl border border-white/10">
+        <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span class="text-xs font-semibold text-blue-100">GitHub Pages Hub</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTAINER -->
+  <main id="main-content" class="flex-grow max-w-7xl w-full mx-auto px-4 py-6 sm:py-8 flex flex-col lg:flex-row gap-6" role="main">
+    
+    <!-- LEFT SIDEBAR: PROFILE, LICENSE, EXPORT -->
+    <aside class="w-full lg:w-80 shrink-0 flex flex-col gap-6" aria-label="Course Metadata Panel">
+      
+      <!-- PROFILE CARD -->
+      <section class="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-5 flex flex-col gap-3.5" aria-labelledby="profile-title">
+        <h2 id="profile-title" class="text-xs font-extrabold text-slate-400 uppercase tracking-wider flex items-center gap-2">
+          <i class="fa-solid fa-chalkboard-user"></i> Course Information
+        </h2>
+        <div>
+          <h3 class="text-sm font-bold text-[#0d4a6b]">CIT 126 Core Portfolio</h3>
+          <p class="text-xs text-slate-600 leading-relaxed mt-1">
+            Welcome to the centralized hub for CIT 126! Here, Professor Karen Ahern publishes interactive study systems, learning aids, and cloud simulation matrices for students.
+          </p>
+        </div>
+        <div class="border-t border-slate-100 pt-3 flex flex-col gap-1 text-xs">
+          <span class="font-bold text-slate-700">Curriculum Target:</span>
+          <span class="text-slate-600">AWS Cloud Practitioner Syllabus Foundations</span>
+        </div>
+      </section>
+
+      <!-- CREATIVE COMMONS LICENSE PANEL -->
+      <section class="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-5 flex flex-col gap-3" aria-labelledby="license-title">
+        <h2 id="license-title" class="text-xs font-extrabold text-[#f26419] uppercase tracking-wider flex items-center gap-2">
+          <i class="fa-solid fa-scale-balanced"></i> Open License Framework
+        </h2>
+        <div class="flex items-center gap-3 text-[#f26419] text-xl">
+          <i class="fa-brands fa-creative-commons"></i>
+          <i class="fa-brands fa-creative-commons-by"></i>
+          <i class="fa-brands fa-creative-commons-nc"></i>
+          <i class="fa-brands fa-creative-commons-sa"></i>
+        </div>
+        <p class="text-xs text-slate-600 leading-relaxed">
+          This course directory and all nested modules are licensed under <strong class="text-[#0d4a6b]">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International</strong>.
+        </p>
+        <div class="bg-orange-50/80 border-l-4 border-[#f26419] p-3 text-[11px] text-slate-700 rounded-r leading-relaxed">
+          <strong class="text-[#f26419] block mb-0.5">Strict Constraint Reminder:</strong>
+          This curriculum may be freely shared, remixed, and adapted. However, it is **strictly prohibited** from being sold, leased, or distributed for commercial gain.
+        </div>
+      </section>
+
+      <!-- EXPORT PANEL -->
+      <section class="bg-[#0d4a6b] text-white rounded-2xl shadow-md p-5 flex flex-col gap-3.5" aria-labelledby="export-title">
+        <h2 id="export-title" class="text-xs font-extrabold text-blue-200 uppercase tracking-wider flex items-center gap-2">
+          <i class="fa-solid fa-cloud-arrow-down"></i> Permanent Push Utility
+        </h2>
+        <p class="text-xs text-blue-100 leading-relaxed">
+          Because this page runs statically on GitHub Pages, locally added links will clear on refresh. Use the exporter tool to permanently compile your changes into the index file!
+        </p>
+        <button type="button" id="btn-open-exporter" class="bg-[#f26419] text-white hover:bg-accentHover transition-colors px-4 py-2.5 rounded-xl text-xs font-bold flex items-center justify-center gap-2 focusable shadow-md">
+          <i class="fa-solid fa-file-export"></i> Compile HTML Code Bundle
+        </button>
+      </section>
+
+    </aside>
+
+    <!-- RIGHT MAIN WINDOW: PORTAL DIRECTORY & LINK WRITER -->
+    <div class="flex-grow flex flex-col gap-6">
+
+      <!-- INTERACTIVE URL CREATOR FORM -->
+      <section class="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-5 sm:p-6" aria-labelledby="form-title">
+        <h2 id="form-title" class="text-base font-bold text-[#0d4a6b] flex items-center gap-2 border-b border-slate-100 pb-3 mb-4">
+          <i class="fa-solid fa-circle-plus text-[#f26419]"></i> Link Administration Dashboard
+        </h2>
+        
+        <form id="link-addition-form" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="flex flex-col gap-1.5">
+            <label for="input-title" class="text-xs font-bold text-slate-700">Display Label / Module Title</label>
+            <input type="text" id="input-title" placeholder="e.g., Module 1 Scenario Matcher Game" class="p-2.5 rounded-lg border border-slate-200 text-xs focus:border-[#f26419] focus:ring-1 focus:ring-[#f26419] focus:outline-none focusable" required>
+          </div>
+
+          <div class="flex flex-col gap-1.5">
+            <label for="input-path" class="text-xs font-bold text-slate-700">Relative Path or Shared URL</label>
+            <input type="text" id="input-path" placeholder="e.g., labs/model-matcher.html" class="p-2.5 rounded-lg border border-slate-200 text-xs font-mono focus:border-[#f26419] focus:ring-1 focus:ring-[#f26419] focus:outline-none focusable" required>
+          </div>
+
+          <div class="flex flex-col gap-1.5">
+            <label for="input-category" class="text-xs font-bold text-slate-700">Resource Category</label>
+            <select id="input-category" class="p-2.5 rounded-lg border border-slate-200 text-xs focus:border-[#f26419] focus:ring-1 focus:ring-[#f26419] focus:outline-none focusable" required>
+              <option value="lectures">📘 Lectures &amp; Slide Study Guides</option>
+              <option value="labs">🛠️ Hands-on Laboratories</option>
+              <option value="quizzes">📝 Quizzes &amp; Assessments</option>
+              <option value="resources">🌐 External supplemental pages</option>
+            </select>
+          </div>
+
+          <div class="flex flex-col gap-1.5">
+            <label for="input-icon" class="text-xs font-bold text-slate-700">Associated Icon</label>
+            <select id="input-icon" class="p-2.5 rounded-lg border border-slate-200 text-xs focus:border-[#f26419] focus:ring-1 focus:ring-[#f26419] focus:outline-none focusable" required>
+              <option value="fa-solid fa-puzzle-piece">🧩 Interactive Puzzle</option>
+              <option value="fa-solid fa-file-pdf">📄 Document / Lecture notes</option>
+              <option value="fa-solid fa-laptop-code">💻 Cloud simulation labs</option>
+              <option value="fa-solid fa-square-poll-vertical">📊 Diagram assessment</option>
+            </select>
+          </div>
+
+          <div class="sm:col-span-2 flex flex-col gap-1.5">
+            <label for="input-desc" class="text-xs font-bold text-slate-700">Operational Description &amp; Curriculum Focus</label>
+            <textarea id="input-desc" rows="2" placeholder="e.g., Aligned to Module 1. Helps students practice the classification of IaaS, PaaS, and SaaS options with realistic scenarios." class="p-2.5 rounded-lg border border-slate-200 text-xs focus:border-[#f26419] focus:ring-1 focus:ring-[#f26419] focus:outline-none focusable" required></textarea>
+          </div>
+
+          <div class="sm:col-span-2 flex justify-between items-center border-t border-slate-100 pt-4 mt-1">
+            <span id="form-success-banner" class="text-xs font-bold text-emerald-600 hidden flex items-center gap-1"><i class="fa-solid fa-circle-check"></i> Added Link successfully! Generate and commit the HTML code now.</span>
+            <button type="submit" class="bg-[#0d4a6b] text-white px-5 py-2.5 rounded-xl text-xs font-bold hover:bg-primaryHover transition-colors focusable flex items-center gap-2 ml-auto">
+              <i class="fa-solid fa-plus"></i> Inject Link to Matrix Directory
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <!-- CENTRAL INDEX PORTAL DIRECTORY -->
+      <section class="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-5 sm:p-6" aria-labelledby="directory-title">
+        
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-slate-100 pb-4 mb-6">
+          <div>
+            <h2 id="directory-title" class="text-base font-bold text-[#0d4a6b] flex items-center gap-2">
+              <i class="fa-solid fa-folder-tree text-amber-500"></i> Course Resources Index
+            </h2>
+            <p class="text-xs text-slate-500 mt-0.5">Filter resources using category pills or search parameters.</p>
+          </div>
+
+          <!-- Live Filter Bar -->
+          <div class="relative w-full sm:w-64">
+            <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400 text-xs">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </span>
+            <input type="text" id="directory-search-input" placeholder="Search resources or keywords..." class="w-full pl-9 pr-3 py-2 border border-slate-200 rounded-lg text-xs focus:border-[#f26419] focus:ring-1 focus:ring-[#f26419] focus:outline-none focusable">
+          </div>
+        </div>
+
+        <!-- CATEGORIES SELECTOR TABS -->
+        <div class="flex flex-wrap gap-2 mb-6" role="tablist" aria-label="Course Sections">
+          <button id="tab-filter-all" class="px-4 py-2 rounded-lg text-xs font-bold bg-[#0d4a6b] text-white transition focusable" role="tab" aria-selected="true">All Resources</button>
+          <button id="tab-filter-lectures" class="px-4 py-2 rounded-lg text-xs font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 transition focusable" role="tab" aria-selected="false">📘 Lectures</button>
+          <button id="tab-filter-labs" class="px-4 py-2 rounded-lg text-xs font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 transition focusable" role="tab" aria-selected="false">🛠️ Labs</button>
+          <button id="tab-filter-quizzes" class="px-4 py-2 rounded-lg text-xs font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 transition focusable" role="tab" aria-selected="false">📝 Quizzes</button>
+          <button id="tab-filter-resources" class="px-4 py-2 rounded-lg text-xs font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 transition focusable" role="tab" aria-selected="false">🌐 Supplemental</button>
+        </div>
+
+        <!-- ACTIVE DIRECTORY CONTENT SPACE -->
+        <div id="dynamic-links-list" class="flex flex-col gap-4" role="list">
+          <!-- Dynamically injected links map here -->
+        </div>
+
+      </section>
+
+    </div>
+
+  </main>
+
+  <!-- REPO CODE GENERATION CODE-VIEW MODAL Overlay -->
+  <div id="exporter-modal-panel" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden animate-fade-in" role="dialog" aria-modal="true" aria-labelledby="modal-head">
+    <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 max-w-3xl w-full flex flex-col max-h-[90vh]">
+      
+      <!-- Modal Header -->
+      <div class="p-5 border-b border-slate-100 flex items-center justify-between bg-[#0d4a6b] text-white rounded-t-2xl">
+        <h3 id="modal-head" class="font-bold flex items-center gap-2 text-sm sm:text-base">
+          <i class="fa-solid fa-cloud-arrow-down text-amber-400"></i> Compile and Save Your Directory
+        </h3>
+        <button type="button" id="btn-close-exporter" class="text-white hover:text-slate-200 focusable text-lg" aria-label="Close dialog">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="p-6 flex flex-col gap-4 overflow-y-auto">
+        <p class="text-xs text-slate-600 leading-relaxed">
+          Because GitHub Pages runs completely client-side, dynamically added link parameters exist in your browser's local memory. Copy the source code in the block below and replace your repository's local <code class="bg-slate-100 text-[#0d4a6b] px-1 rounded font-mono font-bold">index.html</code> file with it. Once you push your changes, they will be saved permanently.
+        </p>
+
+        <div class="flex flex-col gap-2">
+          <div class="flex justify-between items-center text-xs text-slate-500 font-bold">
+            <span>Injected Code (index.html)</span>
+            <button type="button" id="btn-copy-code" class="text-[#f26419] hover:underline flex items-center gap-1 focusable">
+              <i class="fa-solid fa-copy"></i> Copy Entire Code Block
+            </button>
+          </div>
+          <textarea id="modal-compiled-text" readonly class="font-mono text-[10px] bg-slate-950 text-emerald-400 p-4 rounded-xl border border-slate-800 h-64 focus:outline-none focus:border-[#f26419] focusable"></textarea>
+        </div>
+      </div>
+
+      <!-- Footer action profiles -->
+      <div class="p-4 bg-slate-50 border-t border-slate-100 flex justify-end gap-2 rounded-b-2xl">
+        <button type="button" id="btn-done-exporter" class="bg-[#0d4a6b] text-white px-4 py-2 rounded-lg text-xs font-bold hover:bg-primaryHover transition focusable">
+          Return to Portal Space
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="bg-slate-900 text-slate-400 text-xs py-8 mt-12 border-t border-slate-800" aria-hidden="true">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
+      <div class="flex items-center gap-2">
+        <span class="text-[#f26419] text-base"><i class="fa-solid fa-graduation-cap"></i></span>
+        <span>CIT 126 Cloud Computing Fundamentals Companion Hub &middot; College of Southern Nevada</span>
+      </div>
+      <div class="flex items-center gap-4 text-[11px] text-slate-500">
+        <span>Attribution-NonCommercial-ShareAlike 4.0</span>
+        <span>&middot;</span>
+        <span>Production Bundle v1.4</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- CORE SCRIPTS ENGINE -->
+  <script>
+    (function() {
+
+      // GLOBAL REPOSITORY LINKS STATE (Serializes dynamic entries permanently)
+      // This array can be dynamically serialized by the code generator.
+      let globalMaterials = [
+        {
+          id: "m1-guide",
+          title: "Module 1 Interactive Study Guide & Service Models Activity",
+          path: "labs/module-1-study-guide.html",
+          category: "lectures",
+          icon: "fa-solid fa-file-pdf",
+          desc: "Full interactive guide highlighting Module 1's definitions, 6 cloud advantages, AWS service catalog summaries, and a responsive on-premises equivalents matching framework."
+        },
+        {
+          id: "m1-matcher",
+          title: "Cloud Service Models Interactive Drag & Drop System",
+          path: "labs/service-models-matcher.html",
+          category: "labs",
+          icon: "fa-solid fa-puzzle-piece",
+          desc: "Targeted scenario matching assessment testing knowledge of virtualization models (IaaS, PaaS, SaaS) based on server-side administrative dependencies."
+        },
+        {
+          id: "m1-caf",
+          title: "AWS Cloud Adoption Framework (CAF) Perspectives Quiz",
+          path: "labs/caf-perspective-matching.html",
+          category: "quizzes",
+          icon: "fa-solid fa-square-poll-vertical",
+          desc: "Assess and verify organizational stakeholders matching criteria against Business, People, Governance, Platform, Security, and Operations perspectives."
+        }
+      ];
+
+      // Local persistence fallback
+      if (localStorage.getItem('CIT126_PROF_AHERN_MATERIALS')) {
+        try {
+          const parsed = JSON.parse(localStorage.getItem('CIT126_PROF_AHERN_MATERIALS'));
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            globalMaterials = parsed;
+          }
+        } catch (e) {
+          console.warn("Could not read local elements stack database", e);
+        }
+      }
+
+      // SELECTORS
+      const form = document.getElementById('link-addition-form');
+      const dynamicList = document.getElementById('dynamic-links-list');
+      const searchInput = document.getElementById('directory-search-input');
+      const successBanner = document.getElementById('form-success-banner');
+
+      // TAB CONTROLLERS
+      const tabFilterAll = document.getElementById('tab-filter-all');
+      const tabFilterLectures = document.getElementById('tab-filter-lectures');
+      const tabFilterLabs = document.getElementById('tab-filter-labs');
+      const tabFilterQuizzes = document.getElementById('tab-filter-quizzes');
+      const tabFilterResources = document.getElementById('tab-filter-resources');
+
+      // MODAL CONTROLLERS
+      const exporterModal = document.getElementById('exporter-modal-panel');
+      const btnOpenExporter = document.getElementById('btn-open-exporter');
+      const btnCloseExporter = document.getElementById('btn-close-exporter');
+      const btnDoneExporter = document.getElementById('btn-done-exporter');
+      const btnCopyCode = document.getElementById('btn-copy-code');
+      const modalCompiledText = document.getElementById('modal-compiled-text');
+
+      let currentActiveCategory = 'all';
+
+      // Initialize
+      renderDirectory();
+
+      // Form addition tracking
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const title = document.getElementById('input-title').value.trim();
+        const path = document.getElementById('input-path').value.trim();
+        const category = document.getElementById('input-category').value;
+        const icon = document.getElementById('input-icon').value;
+        const desc = document.getElementById('input-desc').value.trim();
+
+        const customItem = {
+          id: "csn-asset-" + Date.now(),
+          title,
+          path,
+          category,
+          icon,
+          desc
+        };
+
+        globalMaterials.unshift(customItem);
+        saveState();
+        renderDirectory();
+        form.reset();
+
+        // Flash Success Banner
+        successBanner.classList.remove('hidden');
+        setTimeout(() => {
+          successBanner.classList.add('hidden');
+        }, 5000);
+
+        announce(`Injected portfolio link "${title}" to category category list.`);
+      });
+
+      function saveState() {
+        localStorage.setItem('CIT126_PROF_AHERN_MATERIALS', JSON.stringify(globalMaterials));
+      }
+
+      function announce(message) {
+        document.getElementById('aria-announcer').textContent = message;
+      }
+
+      // Render items dynamically
+      function renderDirectory() {
+        dynamicList.innerHTML = '';
+        const searchVal = searchInput.value.toLowerCase().trim();
+
+        const filtered = globalMaterials.filter(item => {
+          const categoryCheck = (currentActiveCategory === 'all' || item.category === currentActiveCategory);
+          const searchCheck = item.title.toLowerCase().includes(searchVal) || 
+                              item.desc.toLowerCase().includes(searchVal) || 
+                              item.category.toLowerCase().includes(searchVal);
+          return categoryCheck && searchCheck;
+        });
+
+        if (filtered.length === 0) {
+          dynamicList.innerHTML = `
+            <div class="p-8 text-center text-slate-400 text-xs italic bg-slate-50 border border-dashed border-slate-200 rounded-xl" role="status">
+              No pages or shared links match this criteria. Insert a new configuration above!
+            </div>
+          `;
+          return;
+        }
+
+        filtered.forEach(item => {
+          const card = document.createElement('div');
+          card.className = "p-4 bg-slate-50 border border-slate-200 rounded-xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 hover:bg-slate-100/50 transition duration-150 animate-fade-in";
+          card.setAttribute('role', 'listitem');
+
+          card.innerHTML = `
+            <div class="flex items-start gap-3">
+              <span class="text-[#0d4a6b] text-lg mt-1"><i class="${escapeHTML(item.icon)}"></i></span>
+              <div>
+                <span class="inline-block bg-[#0d4a6b]/10 text-[#0d4a6b] text-[9px] font-extrabold uppercase tracking-wider px-2 py-0.5 rounded-full mb-1">
+                  ${escapeHTML(item.category)}
+                </span>
+                <h3 class="text-xs sm:text-sm font-bold text-slate-800">${escapeHTML(item.title)}</h3>
+                <p class="text-[11px] text-slate-500 mt-0.5 leading-relaxed">${escapeHTML(item.desc)}</p>
+                <code class="text-[10px] bg-white border px-1.5 py-0.5 rounded font-mono text-slate-600 inline-block mt-2">${escapeHTML(item.path)}</code>
+              </div>
+            </div>
+            
+            <div class="flex sm:flex-col items-center sm:items-end gap-2 shrink-0 self-end sm:self-center">
+              <a href="${escapeHTML(item.path)}" target="_blank" class="bg-white border border-slate-300 text-[#0d4a6b] px-3.5 py-2 rounded-lg text-xs font-semibold hover:bg-slate-50 transition flex items-center gap-1.5 focusable shadow-xs">
+                Launch <i class="fa-solid fa-arrow-up-right-from-square text-[10px] text-[#f26419]"></i>
+              </a>
+              <button type="button" class="text-[9px] text-red-500 hover:text-red-700 font-bold px-2 py-1 bg-red-50 rounded border border-red-100 hover:bg-red-100 transition focusable" onclick="window.deleteItem('${item.id}')">
+                Delete Link
+              </button>
+            </div>
+          `;
+
+          dynamicList.appendChild(card);
+        });
+      }
+
+      // Globally scoped delete operation
+      window.deleteItem = function(id) {
+        globalMaterials = globalMaterials.filter(item => item.id !== id);
+        saveState();
+        renderDirectory();
+        announce("The specified repository reference was deleted from local memories.");
+      };
+
+      // Live search bindings
+      searchInput.addEventListener('input', () => {
+        renderDirectory();
+      });
+
+      // Filter tabs bindings
+      const filterMappings = {
+        'tab-filter-all': 'all',
+        'tab-filter-lectures': 'lectures',
+        'tab-filter-labs': 'labs',
+        'tab-filter-quizzes': 'quizzes',
+        'tab-filter-resources': 'resources'
+      };
+
+      Object.keys(filterMappings).forEach(btnId => {
+        const btn = document.getElementById(btnId);
+        btn.addEventListener('click', () => {
+          // Deselect previous
+          document.querySelectorAll('[role="tab"]').forEach(el => {
+            el.setAttribute('aria-selected', 'false');
+            el.className = "px-4 py-2 rounded-lg text-xs font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 transition focusable";
+          });
+
+          // Select current
+          btn.setAttribute('aria-selected', 'true');
+          btn.className = "px-4 py-2 rounded-lg text-xs font-bold bg-[#0d4a6b] text-white transition focusable";
+
+          currentActiveCategory = filterMappings[btnId];
+          renderDirectory();
+          announce(`View category switched to: ${btn.textContent.trim()}`);
+        });
+      });
+
+
+      // --- MODAL & CODE EXPORT ENGINE ---
+      btnOpenExporter.addEventListener('click', () => {
+        const updatedSourceCode = compileUpdatedPageCode();
+        modalCompiledText.value = updatedSourceCode;
+
+        exporterModal.classList.remove('hidden');
+        document.body.classList.add('overflow-hidden');
+        modalCompiledText.focus();
+        announce("Permanent index page code compiled successfully.");
+      });
+
+      function compileUpdatedPageCode() {
+        const serialized = JSON.stringify(globalMaterials, null, 2);
+        const originalHTML = document.documentElement.outerHTML;
+
+        // Uses a regular expression to cleanly overwrite the embedded array in our compiled HTML.
+        const targetPattern = /let globalMaterials = \[\s*[\s\S]*?\];/;
+        const modifiedHTML = originalHTML.replace(targetPattern, `let globalMaterials = ${serialized};`);
+
+        return `<!DOCTYPE html>\n` + modifiedHTML;
+      }
+
+      function closeModal() {
+        exporterModal.classList.add('hidden');
+        document.body.classList.remove('overflow-hidden');
+        btnOpenExporter.focus();
+        announce("Exporter dialog closed.");
+      }
+
+      btnCloseExporter.addEventListener('click', closeModal);
+      btnDoneExporter.addEventListener('click', closeModal);
+
+      // Clipboard operations
+      btnCopyCode.addEventListener('click', () => {
+        modalCompiledText.select();
+        document.execCommand('copy');
+        announce("The updated index.html code was successfully copied to your system's clipboard.");
+        
+        btnCopyCode.innerHTML = "<i class='fa-solid fa-check text-emerald-500'></i> Code Copied!";
+        setTimeout(() => {
+          btnCopyCode.innerHTML = "<i class='fa-solid fa-copy'></i> Copy Entire Code Block";
+        }, 3000);
+      });
+
+      // Escape utilities for dynamic HTML formatting
+      function escapeHTML(str) {
+        return str.replace(/[&<>'"]/g, 
+          tag => ({
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            "'": '&#39;',
+            '"': '&quot;'
+          }[tag] || tag)
+        );
+      }
+
+    })();
+  </script>
+
+</body>
+</html>
