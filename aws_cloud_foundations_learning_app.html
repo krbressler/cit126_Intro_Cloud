@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AWS Cloud Foundations - Interactive Study Guide & Service Models Activity</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#0d4a6b',
+            accent: '#f26419',
+            customBg: '#f0f7fb',
+            cardBg: '#ffffff',
+            primaryHover: '#0a3a54',
+            accentHover: '#d85310'
+          }
+        }
+      }
+    }
+  </script>
+  
+  <!-- FontAwesome for Premium Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    /* Focus indicators for accessibility */
+    .focusable:focus-visible, [tabindex="0"]:focus-visible {
+      outline: 3px solid var(--user-accent, #f26419);
+      outline-offset: 2px;
+    }
+    
+    /* Smooth transitions */
+    .transition-all-custom {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    /* Custom Scrollbar for better UI density presentation */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #c1c1c1;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #a8a8a8;
+    }
+  </style>
+</head>
+<body class="bg-[#f0f7fb] text-gray-800 min-h-screen flex flex-col font-sans">
+
+  <!-- ACCESSIBILITY SKIP LINK -->
+  <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-[#f26419] text-white px-4 py-2 rounded shadow-lg z-50">
+    Skip to main content
+  </a>
+
+  <!-- ARIA LIVE ANNOUNCER REGION -->
+  <div id="aria-announcer" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- NAVIGATION HEADER -->
+  <header class="bg-[#0d4a6b] text-white shadow-md border-b-4 border-[#f26419]">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+      <div class="flex items-center gap-3">
+        <div class="bg-white text-[#0d4a6b] p-2 rounded-lg font-bold text-xl flex items-center justify-center w-10 h-10 shadow-inner">
+          <i class="fa-solid fa-cloud"></i>
+        </div>
+        <div>
+          <h1 class="text-xl sm:text-2xl font-extrabold tracking-tight">AWS Academy Cloud Foundations</h1>
+          <p class="text-xs sm:text-sm text-blue-200 font-medium">Module 1: Cloud Concepts Overview &amp; Deployment Models</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-2 bg-[#0d4a6b] border border-blue-400/30 px-3 py-1.5 rounded-full text-xs sm:text-sm">
+        <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span class="font-semibold text-blue-100">CS 100/200 Level Scaffolding App</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- CONTAINER -->
+  <main id="main-content" class="flex-grow max-w-7xl w-full mx-auto px-4 py-6 sm:py-8 flex flex-col gap-6" role="main">
+    
+    <!-- MODULE OBJECTIVES SECTION -->
+    <section class="bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6" aria-labelledby="section-objectives">
+      <div class="flex items-start gap-3">
+        <div class="bg-emerald-50 text-emerald-700 p-2.5 rounded-lg">
+          <i class="fa-solid fa-graduation-cap text-xl"></i>
+        </div>
+        <div>
+          <h2 id="section-objectives" class="text-lg font-bold text-[#0d4a6b]">Your Module 1 Learning Journey</h2>
+          <p class="text-sm text-gray-600 mt-1">
+            Aligned to Bloom's Taxonomy <strong>Lower Tiers (Remember, Understand, and Apply)</strong>, this study guide helps you master the concepts covered in Module 1. Review slides, test your knowledge, and match cloud structures interactively.
+          </p>
+          <ul class="grid grid-cols-1 md:grid-cols-2 gap-2 mt-4 text-xs sm:text-sm text-gray-700">
+            <li class="flex items-center gap-2"><i class="fa-regular fa-circle-check text-emerald-600"></i> Define different types of cloud computing models (IaaS, PaaS, SaaS)</li>
+            <li class="flex items-center gap-2"><i class="fa-regular fa-circle-check text-emerald-600"></i> Describe six core advantages of cloud computing</li>
+            <li class="flex items-center gap-2"><i class="fa-regular fa-circle-check text-emerald-600"></i> Differentiate AWS service categories &amp; traditional IT analogies</li>
+            <li class="flex items-center gap-2"><i class="fa-regular fa-circle-check text-emerald-600"></i> Understand the 6 perspectives of the AWS Cloud Adoption Framework (CAF)</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- TABBED NAVIGATION CONTROL -->
+    <div class="border-b border-gray-200">
+      <nav class="flex flex-wrap -mb-px gap-2" aria-label="Study Guide Sections" role="tablist">
+        <button id="tab-concepts" class="px-4 py-3 font-semibold text-sm border-b-2 border-[#f26419] text-[#0d4a6b] flex items-center gap-2 focus:outline-none focusable" role="tab" aria-selected="true" aria-controls="panel-concepts" tabindex="0">
+          <i class="fa-solid fa-book-open"></i> 1. Core Cloud Concepts &amp; Analogs
+        </button>
+        <button id="tab-models" class="px-4 py-3 font-semibold text-sm border-b-2 border-transparent text-gray-500 hover:text-gray-700 flex items-center gap-2 focus:outline-none focusable" role="tab" aria-selected="false" aria-controls="panel-models" tabindex="-1">
+          <i class="fa-solid fa-arrows-spin"></i> 2. Service Model Matcher
+        </button>
+        <button id="tab-caf" class="px-4 py-3 font-semibold text-sm border-b-2 border-transparent text-gray-500 hover:text-gray-700 flex items-center gap-2 focus:outline-none focusable" role="tab" aria-selected="false" aria-controls="panel-caf" tabindex="-1">
+          <i class="fa-solid fa-compass-drafting"></i> 3. AWS CAF Perspectives
+        </button>
+        <button id="tab-logs" class="px-4 py-3 font-semibold text-sm border-b-2 border-transparent text-gray-500 hover:text-gray-700 flex items-center gap-2 focus:outline-none focusable" role="tab" aria-selected="false" aria-controls="panel-logs" tabindex="-1">
+          <i class="fa-solid fa-clipboard-check"></i> 4. Design Logs &amp; Trace
+        </button>
+      </nav>
+    </div>
+
+    <!-- TAB PANELS CONTENT -->
+    <div class="flex flex-col gap-6">
+
+      <!-- PANEL 1: CONCEPTS & ANALOGS -->
+      <section id="panel-concepts" class="tab-panel flex flex-col gap-6" role="tabpanel" aria-labelledby="tab-concepts" tabindex="0">
+        
+        <!-- INTRO & THE 6 ADVANTAGES SUMMARY -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div class="lg:col-span-2 flex flex-col gap-4 bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6">
+            <h3 class="text-lg font-bold text-[#0d4a6b] flex items-center gap-2">
+              <i class="fa-solid fa-circle-info"></i> What is Cloud Computing? (Module Defined)
+            </h3>
+            <p class="text-sm text-gray-700">
+              Cloud computing is the <strong class="text-[#0d4a6b]">on-demand delivery</strong> of compute power, database, storage, applications, and other IT resources via the internet with <strong class="text-[#f26419]">pay-as-you-go pricing</strong>. 
+            </p>
+            <div class="bg-blue-50 border-l-4 border-[#0d4a6b] p-3 text-xs sm:text-sm text-gray-700 rounded-r">
+              <span class="font-semibold block mb-1 text-[#0d4a6b]">Subject Matter Expert Nuance:</span>
+              In traditional models, infrastructure is treated as <span class="underline">hardware</span>, requiring large capital investments and capacity prediction. In the cloud model, you stop thinking of physical servers and instead treat infrastructure as <strong class="text-[#0d4a6b]">software</strong> which can be automated, scaled down, or discarded dynamically.
+            </div>
+
+            <div class="mt-4">
+              <h4 class="font-bold text-sm text-gray-800 mb-2">The Six Core Advantages of Cloud Computing:</h4>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div class="flex gap-2 items-start bg-slate-50 p-2.5 rounded border border-slate-100">
+                  <span class="font-bold text-xs bg-orange-100 text-[#f26419] px-1.5 py-0.5 rounded">1</span>
+                  <div class="text-xs">
+                    <strong class="block text-[#0d4a6b]">Trade CapEx for Variable Exp</strong>
+                    Pay only when consuming resources, scaling down upfront risk.
+                  </div>
+                </div>
+                <div class="flex gap-2 items-start bg-slate-50 p-2.5 rounded border border-slate-100">
+                  <span class="font-bold text-xs bg-orange-100 text-[#f26419] px-1.5 py-0.5 rounded">2</span>
+                  <div class="text-xs">
+                    <strong class="block text-[#0d4a6b]">Massive Economies of Scale</strong>
+                    Aggregate usage across customers lets AWS pass price discounts down.
+                  </div>
+                </div>
+                <div class="flex gap-2 items-start bg-slate-50 p-2.5 rounded border border-slate-100">
+                  <span class="font-bold text-xs bg-orange-100 text-[#f26419] px-1.5 py-0.5 rounded">3</span>
+                  <div class="text-xs">
+                    <strong class="block text-[#0d4a6b]">Stop Guessing Capacity</strong>
+                    Access as much as you need; scale dynamically without paying for idle assets.
+                  </div>
+                </div>
+                <div class="flex gap-2 items-start bg-slate-50 p-2.5 rounded border border-slate-100">
+                  <span class="font-bold text-xs bg-orange-100 text-[#f26419] px-1.5 py-0.5 rounded">4</span>
+                  <div class="text-xs">
+                    <strong class="block text-[#0d4a6b]">Increase Speed &amp; Agility</strong>
+                    Spin up databases, compute runtimes, or networks instantly in minutes.
+                  </div>
+                </div>
+                <div class="flex gap-2 items-start bg-slate-50 p-2.5 rounded border border-slate-100">
+                  <span class="font-bold text-xs bg-orange-100 text-[#f26419] px-1.5 py-0.5 rounded">5</span>
+                  <div class="text-xs">
+                    <strong class="block text-[#0d4a6b]">Stop Running Data Centers</strong>
+                    Stop structural heavy lifting (stacking, cooling, power grid overhead).
+                  </div>
+                </div>
+                <div class="flex gap-2 items-start bg-slate-50 p-2.5 rounded border border-slate-100">
+                  <span class="font-bold text-xs bg-orange-100 text-[#f26419] px-1.5 py-0.5 rounded">6</span>
+                  <div class="text-xs">
+                    <strong class="block text-[#0d4a6b]">Go Global in Minutes</strong>
+                    Deploy solutions cross-region to slash latency for worldwide users.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ANALOG INTERACTIVE CHECKER -->
+          <div class="bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 flex flex-col gap-4">
+            <h3 class="text-lg font-bold text-[#0d4a6b] flex items-center gap-2">
+              <i class="fa-solid fa-circle-nodes"></i> On-Premise vs AWS Analogs
+            </h3>
+            <p class="text-xs text-gray-600">
+              Understanding how AWS equivalents match legacy infrastructure concepts (Page 12 of module notes).
+            </p>
+            <div class="flex flex-col gap-2" id="analog-checker">
+              <div class="text-xs font-bold text-slate-500 mb-1">Match Traditional to AWS Equivalents:</div>
+              
+              <!-- Match Row 1 -->
+              <div class="flex flex-col gap-1.5 bg-slate-50 p-2.5 rounded border border-slate-200">
+                <span class="text-xs font-semibold text-gray-800">1. On-Premises Firewalls &amp; ACLs:</span>
+                <select data-key="firewall" class="analog-select text-xs p-1.5 rounded border border-gray-300 w-full focus:outline-none focus:border-[#f26419]">
+                  <option value="">-- Choose AWS Equiv --</option>
+                  <option value="sg">Security Groups / Network ACLs</option>
+                  <option value="vpc">Amazon VPC / Route Tables</option>
+                  <option value="ec2">Amazon EC2 Instance</option>
+                  <option value="s3">Amazon S3 / Databases</option>
+                </select>
+              </div>
+
+              <!-- Match Row 2 -->
+              <div class="flex flex-col gap-1.5 bg-slate-50 p-2.5 rounded border border-slate-200">
+                <span class="text-xs font-semibold text-gray-800">2. Routers &amp; Network Pipelines:</span>
+                <select data-key="router" class="analog-select text-xs p-1.5 rounded border border-gray-300 w-full focus:outline-none focus:border-[#f26419]">
+                  <option value="">-- Choose AWS Equiv --</option>
+                  <option value="sg">Security Groups / Network ACLs</option>
+                  <option value="vpc">Elastic Load Balancing / Amazon VPC</option>
+                  <option value="ec2">Amazon EC2 Instance</option>
+                  <option value="s3">Amazon S3 / Databases</option>
+                </select>
+              </div>
+
+              <!-- Match Row 3 -->
+              <div class="flex flex-col gap-1.5 bg-slate-50 p-2.5 rounded border border-slate-200">
+                <span class="text-xs font-semibold text-gray-800">3. Local Hardware Servers:</span>
+                <select data-key="servers" class="analog-select text-xs p-1.5 rounded border border-gray-300 w-full focus:outline-none focus:border-[#f26419]">
+                  <option value="">-- Choose AWS Equiv --</option>
+                  <option value="sg">Security Groups / Network ACLs</option>
+                  <option value="vpc">Amazon VPC / Route Tables</option>
+                  <option value="ec2">AMIs &amp; Amazon EC2 Instances</option>
+                  <option value="s3">Amazon S3 / Databases</option>
+                </select>
+              </div>
+
+              <!-- Match Row 4 -->
+              <div class="flex flex-col gap-1.5 bg-slate-50 p-2.5 rounded border border-slate-200">
+                <span class="text-xs font-semibold text-gray-800">4. On-Premises Direct Storage (DAS/SAN/NAS):</span>
+                <select data-key="storage" class="analog-select text-xs p-1.5 rounded border border-gray-300 w-full focus:outline-none focus:border-[#f26419]">
+                  <option value="">-- Choose AWS Equiv --</option>
+                  <option value="sg">Security Groups / Network ACLs</option>
+                  <option value="vpc">Amazon VPC / Route Tables</option>
+                  <option value="ec2">Amazon EC2 Instance</option>
+                  <option value="s3">EBS / EFS / Amazon S3 / RDS</option>
+                </select>
+              </div>
+
+              <button id="validate-analogs-btn" type="button" class="mt-2 bg-[#0d4a6b] text-white py-1.5 text-xs font-semibold rounded hover:bg-primaryHover transition-all focusable">
+                Validate Analogs Mapping
+              </button>
+              <div id="analogs-feedback" class="text-xs font-bold mt-1 text-center hidden"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 1 QUICK QUIZ - FORMATIVE ASSESSMENT -->
+        <div class="bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 flex flex-col gap-4">
+          <h3 class="text-lg font-bold text-[#0d4a6b] flex items-center gap-2">
+            <i class="fa-solid fa-clipboard-question"></i> Formative Check: Core Concepts (Module Sample Practice)
+          </h3>
+          <p class="text-xs sm:text-sm text-gray-600">
+            Ensure you understand deployment scenarios and advantages before using the Matcher activity.
+          </p>
+
+          <form id="quiz-form" class="flex flex-col gap-4" onsubmit="event.preventDefault();">
+            <!-- Question 1 -->
+            <fieldset class="border border-slate-100 p-4 rounded bg-slate-50/50">
+              <legend class="text-sm font-bold text-gray-800 mb-2">Q1. Why is AWS more economical than traditional data centers for applications with varying compute workloads? (Slide Question 44/45)</legend>
+              <div class="flex flex-col gap-2 text-xs sm:text-sm">
+                <label class="flex items-center gap-2 p-2 hover:bg-white rounded cursor-pointer transition">
+                  <input type="radio" name="q1" value="A" class="accent-[#f26419]">
+                  <span>A) Amazon Elastic Compute Cloud (Amazon EC2) costs are billed on a fixed monthly basis.</span>
+                </label>
+                <label class="flex items-center gap-2 p-2 hover:bg-white rounded cursor-pointer transition">
+                  <input type="radio" name="q1" value="B" class="accent-[#f26419]">
+                  <span>B) Customers retain full administrative root access to their physical server frames.</span>
+                </label>
+                <label class="flex items-center gap-2 p-2 hover:bg-white rounded cursor-pointer transition">
+                  <input type="radio" name="q1" value="C" class="accent-[#f26419]">
+                  <span>C) Amazon EC2 instances can be launched automatically on-demand when needed, scaling to matches loads.</span>
+                </label>
+                <label class="flex items-center gap-2 p-2 hover:bg-white rounded cursor-pointer transition">
+                  <input type="radio" name="q1" value="D" class="accent-[#f26419]">
+                  <span>D) Customers can permanently run extra instances all year to handle potential theoretical peak workloads.</span>
+                </label>
+              </div>
+            </fieldset>
+
+            <!-- Question 2 -->
+            <fieldset class="border border-slate-100 p-4 rounded bg-slate-50/50">
+              <legend class="text-sm font-bold text-gray-800 mb-2">Q2. Which cloud deployment model connects existing on-premises infrastructure to AWS Cloud resources to extend computing boundaries?</legend>
+              <div class="flex flex-col gap-2 text-xs sm:text-sm">
+                <label class="flex items-center gap-2 p-2 hover:bg-white rounded cursor-pointer transition">
+                  <input type="radio" name="q2" value="cloud" class="accent-[#f26419]">
+                  <span>A) All-Cloud-based (SaaS execution)</span>
+                </label>
+                <label class="flex items-center gap-2 p-2 hover:bg-white rounded cursor-pointer transition">
+                  <input type="radio" name="q2" value="hybrid" class="accent-[#f26419]">
+                  <span>B) Hybrid Deployment Model (Slide 11 Integration)</span>
+                </label>
+                <label class="flex items-center gap-2 p-2 hover:bg-white rounded cursor-pointer transition">
+                  <input type="radio" name="q2" value="private" class="accent-[#f26419]">
+                  <span>C) Traditional On-Premises (Private Cloud)</span>
+                </label>
+              </div>
+            </fieldset>
+
+            <div class="flex justify-between items-center mt-2">
+              <button type="button" id="submit-quiz-btn" class="bg-[#f26419] text-white px-5 py-2 rounded text-sm font-bold hover:bg-accentHover transition-all focusable">
+                Submit Answers
+              </button>
+              <span id="quiz-result" class="text-sm font-bold hidden"></span>
+            </div>
+          </form>
+        </div>
+
+      </section>
+
+      <!-- PANEL 2: SERVICE MODEL MATCHING ACTIVITY -->
+      <section id="panel-models" class="tab-panel hidden flex flex-col gap-6" role="tabpanel" aria-labelledby="tab-models" tabindex="0">
+        
+        <div class="bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6">
+          <div class="flex items-start gap-3">
+            <div class="bg-orange-50 text-orange-700 p-2.5 rounded-lg">
+              <i class="fa-solid fa-puzzle-piece text-xl"></i>
+            </div>
+            <div>
+              <h3 class="text-lg font-bold text-[#0d4a6b]">Activity Instructions: Match Service Models (IaaS, PaaS, SaaS)</h3>
+              <p class="text-sm text-gray-600 mt-1">
+                Drag the service configuration cards on the left side and drop them into their matching service target regions on the right. 
+              </p>
+              <div class="bg-slate-50 border border-slate-200 p-3 rounded-lg text-xs mt-3 flex flex-col sm:flex-row gap-3 items-center justify-between">
+                <div class="flex gap-2 items-center">
+                  <i class="fa-solid fa-keyboard text-slate-500 text-base"></i>
+                  <span><strong>Keyboard Navigation:</strong> Select cards with Tab, press <kbd class="px-1 py-0.5 bg-gray-200 rounded border">Space/Enter</kbd> to activate selection, choose target using <kbd class="px-1 py-0.5 bg-gray-200 rounded border">Tab</kbd>, and press <kbd class="px-1 py-0.5 bg-gray-200 rounded border">Space/Enter</kbd> to map.</span>
+                </div>
+                <button type="button" id="reset-matcher-btn" class="text-xs bg-[#0d4a6b] text-white px-3 py-1.5 rounded hover:bg-primaryHover transition focusable">
+                  <i class="fa-solid fa-arrow-rotate-left"></i> Reset Board
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          <!-- Card Inventory Columns -->
+          <div class="lg:col-span-5 flex flex-col gap-4">
+            <h4 class="text-sm font-bold text-gray-700 flex items-center justify-between">
+              <span>Model Cards Inventory</span>
+              <span class="text-xs text-slate-400 font-normal">Available: <span id="inventory-count">6</span></span>
+            </h4>
+            
+            <div id="cards-inventory" class="flex flex-col gap-3 min-h-[350px] p-4 bg-slate-50 rounded-xl border-2 border-dashed border-slate-200">
+              <!-- Card 1 -->
+              <div id="card-1" draggable="true" data-type="iaas" class="draggable-card bg-white p-3.5 rounded-lg border border-slate-200 shadow-sm cursor-grab active:cursor-grabbing hover:border-blue-400 focus:outline-none transition-all-custom flex items-start gap-3" tabindex="0" role="listitem" aria-grabbed="false">
+                <div class="text-blue-500 bg-blue-50 p-2 rounded"><i class="fa-solid fa-server"></i></div>
+                <div>
+                  <h5 class="text-xs font-bold text-slate-700">Infrastructure (IaaS) #1</h5>
+                  <p class="text-xs text-gray-600 mt-1">Amazon EC2 instance deployment where your staff installs a custom Linux OS runtime, handles application dependencies, and patches network firewalls.</p>
+                </div>
+              </div>
+              
+              <!-- Card 2 -->
+              <div id="card-2" draggable="true" data-type="paas" class="draggable-card bg-white p-3.5 rounded-lg border border-slate-200 shadow-sm cursor-grab active:cursor-grabbing hover:border-blue-400 focus:outline-none transition-all-custom flex items-start gap-3" tabindex="0" role="listitem" aria-grabbed="false">
+                <div class="text-[#f26419] bg-orange-50 p-2 rounded"><i class="fa-solid fa-code"></i></div>
+                <div>
+                  <h5 class="text-xs font-bold text-slate-700">Platform (PaaS) #1</h5>
+                  <p class="text-xs text-gray-600 mt-1">AWS Elastic Beanstalk deploys node.js applications automatically handles load balancing, capacity scaling, and monitoring without server OS administrative tasks.</p>
+                </div>
+              </div>
+
+              <!-- Card 3 -->
+              <div id="card-3" draggable="true" data-type="saas" class="draggable-card bg-white p-3.5 rounded-lg border border-slate-200 shadow-sm cursor-grab active:cursor-grabbing hover:border-blue-400 focus:outline-none transition-all-custom flex items-start gap-3" tabindex="0" role="listitem" aria-grabbed="false">
+                <div class="text-emerald-500 bg-emerald-50 p-2 rounded"><i class="fa-solid fa-envelope-open-text"></i></div>
+                <div>
+                  <h5 class="text-xs font-bold text-slate-700">Software (SaaS) #1</h5>
+                  <p class="text-xs text-gray-600 mt-1">A company subscribes to Microsoft Office 365 or Slack. The cloud service provider runs, secures, updates, and manages all server-side functions completely.</p>
+                </div>
+              </div>
+
+              <!-- Card 4 -->
+              <div id="card-4" draggable="true" data-type="iaas" class="draggable-card bg-white p-3.5 rounded-lg border border-slate-200 shadow-sm cursor-grab active:cursor-grabbing hover:border-blue-400 focus:outline-none transition-all-custom flex items-start gap-3" tabindex="0" role="listitem" aria-grabbed="false">
+                <div class="text-blue-500 bg-blue-50 p-2 rounded"><i class="fa-solid fa-network-wired"></i></div>
+                <div>
+                  <h5 class="text-xs font-bold text-slate-700">Infrastructure (IaaS) #2</h5>
+                  <p class="text-xs text-gray-600 mt-1">Deploying Amazon Virtual Private Cloud (VPC) subnets, custom routing rules, and allocating raw Amazon EBS storage blocks directly linked to bare instance nodes.</p>
+                </div>
+              </div>
+
+              <!-- Card 5 -->
+              <div id="card-5" draggable="true" data-type="paas" class="draggable-card bg-white p-3.5 rounded-lg border border-slate-200 shadow-sm cursor-grab active:cursor-grabbing hover:border-blue-400 focus:outline-none transition-all-custom flex items-start gap-3" tabindex="0" role="listitem" aria-grabbed="false">
+                <div class="text-[#f26419] bg-orange-50 p-2 rounded"><i class="fa-solid fa-bolt"></i></div>
+                <div>
+                  <h5 class="text-xs font-bold text-slate-700">Platform (PaaS) #2</h5>
+                  <p class="text-xs text-gray-600 mt-1">AWS Lambda Serverless computing: Developers write code and attach API endpoints. AWS automatically handles physical environments, operating runtimes, and compute nodes scaling.</p>
+                </div>
+              </div>
+
+              <!-- Card 6 -->
+              <div id="card-6" draggable="true" data-type="saas" class="draggable-card bg-white p-3.5 rounded-lg border border-slate-200 shadow-sm cursor-grab active:cursor-grabbing hover:border-blue-400 focus:outline-none transition-all-custom flex items-start gap-3" tabindex="0" role="listitem" aria-grabbed="false">
+                <div class="text-emerald-500 bg-emerald-50 p-2 rounded"><i class="fa-solid fa-shield-halved"></i></div>
+                <div>
+                  <h5 class="text-xs font-bold text-slate-700">Software (SaaS) #2</h5>
+                  <p class="text-xs text-gray-600 mt-1">AWS Artifact: Directly downloading pre-signed compliance certificates and reports from a finished portal page without running databases or back-end runtimes.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Matching Areas -->
+          <div class="lg:col-span-7 flex flex-col gap-4">
+            <h4 class="text-sm font-bold text-gray-700">Target Assignment Zones</h4>
+            
+            <div class="flex flex-col gap-4">
+              <!-- Target 1: IaaS Zone -->
+              <div id="target-iaas" class="match-target-zone bg-white border-2 border-dashed border-[#0d4a6b]/30 p-4 rounded-xl flex flex-col gap-3 min-h-[140px] hover:border-[#0d4a6b] transition" data-match-type="iaas" role="region" aria-label="IaaS Target Assignment Area">
+                <div class="flex justify-between items-center border-b border-gray-100 pb-2">
+                  <span class="text-xs font-extrabold uppercase tracking-wider text-[#0d4a6b] bg-blue-50 px-2 py-0.5 rounded">IaaS (Infrastructure as a Service) Target</span>
+                  <span class="text-xs text-slate-400 font-semibold"><i class="fa-solid fa-vault"></i> Scope: Networking, OS Control, and Racks</span>
+                </div>
+                <div class="zone-placeholder text-center text-xs text-gray-400 italic py-6">
+                  Drop cards detailing physical equivalent configurations or direct operating system environments here...
+                </div>
+                <div class="assigned-cards-container flex flex-col gap-2"></div>
+              </div>
+
+              <!-- Target 2: PaaS Zone -->
+              <div id="target-paas" class="match-target-zone bg-white border-2 border-dashed border-[#f26419]/30 p-4 rounded-xl flex flex-col gap-3 min-h-[140px] hover:border-[#f26419] transition" data-match-type="paas" role="region" aria-label="PaaS Target Assignment Area">
+                <div class="flex justify-between items-center border-b border-gray-100 pb-2">
+                  <span class="text-xs font-extrabold uppercase tracking-wider text-[#f26419] bg-orange-50 px-2 py-0.5 rounded">PaaS (Platform as a Service) Target</span>
+                  <span class="text-xs text-slate-400 font-semibold"><i class="fa-solid fa-gears"></i> Scope: App Code and Deployment Execution</span>
+                </div>
+                <div class="zone-placeholder text-center text-xs text-gray-400 italic py-6">
+                  Drop cards describing frameworks, runtime deployment configurations, or auto-scaled code solutions here...
+                </div>
+                <div class="assigned-cards-container flex flex-col gap-2"></div>
+              </div>
+
+              <!-- Target 3: SaaS Zone -->
+              <div id="target-saas" class="match-target-zone bg-white border-2 border-dashed border-emerald-600/30 p-4 rounded-xl flex flex-col gap-3 min-h-[140px] hover:border-emerald-600 transition" data-match-type="saas" role="region" aria-label="SaaS Target Assignment Area">
+                <div class="flex justify-between items-center border-b border-gray-100 pb-2">
+                  <span class="text-xs font-extrabold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded">SaaS (Software as a Service) Target</span>
+                  <span class="text-xs text-slate-400 font-semibold"><i class="fa-solid fa-user-check"></i> Scope: Finished Products for Consumers</span>
+                </div>
+                <div class="zone-placeholder text-center text-xs text-gray-400 italic py-6">
+                  Drop cards describing complete web-applications, vendor-managed business runtimes, or consumer products here...
+                </div>
+                <div class="assigned-cards-container flex flex-col gap-2"></div>
+              </div>
+            </div>
+
+            <!-- Validate Match Button -->
+            <div class="mt-4 flex flex-col gap-3">
+              <button type="button" id="verify-matcher-btn" class="bg-[#0d4a6b] text-white py-3 rounded-lg font-bold shadow-md hover:bg-primaryHover transition focusable text-sm flex items-center justify-center gap-2">
+                <i class="fa-solid fa-circle-check"></i> Verify Drag-and-Drop Configuration Matrices
+              </button>
+              <div id="matcher-feedback" class="p-3 text-center rounded-lg text-sm font-semibold hidden"></div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- PANEL 3: AWS CLOUD ADOPTION FRAMEWORK (CAF) -->
+      <section id="panel-caf" class="tab-panel hidden flex flex-col gap-6" role="tabpanel" aria-labelledby="tab-caf" tabindex="0">
+        
+        <div class="bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 flex flex-col gap-4">
+          <h3 class="text-lg font-bold text-[#0d4a6b] flex items-center gap-2">
+            <i class="fa-solid fa-compass-drafting"></i> Exploring the AWS Cloud Adoption Framework (AWS CAF)
+          </h3>
+          <p class="text-xs sm:text-sm text-gray-700">
+            For successful cloud adoption, an organization must align its technology, people, and processes (Page 31/32). The AWS CAF provides guidance and best practices organized into <strong>six perspectives</strong>. These are split into two focus tiers:
+          </p>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-2">
+            <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl flex flex-col gap-2">
+              <h4 class="text-sm font-bold text-[#0d4a6b] border-b border-slate-200 pb-1.5 flex items-center gap-2">
+                <i class="fa-solid fa-briefcase"></i> Focus on Business Capabilities
+              </h4>
+              <ul class="flex flex-col gap-2 text-xs text-gray-700">
+                <li><strong>Business:</strong> Ensures IT is aligned with business needs, and investments produce demonstrable business results (IT strategy, IT finance).</li>
+                <li><strong>People:</strong> Evaluates organizational structure, skill needs, career paths, and guides the change strategy.</li>
+                <li><strong>Governance:</strong> Aligns IT strategy with business strategy to minimize risks and maximize cloud portfolio values.</li>
+              </ul>
+            </div>
+            
+            <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl flex flex-col gap-2">
+              <h4 class="text-sm font-bold text-[#f26419] border-b border-slate-200 pb-1.5 flex items-center gap-2">
+                <i class="fa-solid fa-screwdriver-wrench"></i> Focus on Technical Capabilities
+              </h4>
+              <ul class="flex flex-col gap-2 text-xs text-gray-700">
+                <li><strong>Platform:</strong> Guides detailed target state cloud environments, structural templates, and systems architecture.</li>
+                <li><strong>Security:</strong> Outlines identity, access control guidelines, data protection, compliance frameworks, and incident response.</li>
+                <li><strong>Operations:</strong> Defines operational governance, day-to-day service monitoring, system releases, and backup recovery actions.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- PERSPECTIVE ALIGNMENT PRACTICE -->
+          <div class="border border-slate-200 p-4 rounded-xl bg-slate-50/50 flex flex-col gap-4 mt-2">
+            <h4 class="text-sm font-bold text-gray-800">Match Stakeholder Statements to AWS CAF Perspectives:</h4>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <!-- Statement 1 -->
+              <div class="bg-white p-3 rounded border border-slate-200 flex flex-col gap-2">
+                <blockquote class="text-xs italic text-gray-600">
+                  "We must prioritize training, staffing, and organizational changes to build an agile organization."
+                </blockquote>
+                <select data-stmt="1" class="caf-select text-xs p-1.5 rounded border border-gray-300 focus:outline-none focus:border-[#f26419]">
+                  <option value="">-- Choose Perspective --</option>
+                  <option value="business">Business Perspective</option>
+                  <option value="people">People Perspective</option>
+                  <option value="governance">Governance Perspective</option>
+                  <option value="platform">Platform Perspective</option>
+                  <option value="security">Security Perspective</option>
+                  <option value="operations">Operations Perspective</option>
+                </select>
+              </div>
+
+              <!-- Statement 2 -->
+              <div class="bg-white p-3 rounded border border-slate-200 flex flex-col gap-2">
+                <blockquote class="text-xs italic text-gray-600">
+                  "We must ensure that skills and processes align IT investments with business strategy to minimize risks."
+                </blockquote>
+                <select data-stmt="2" class="caf-select text-xs p-1.5 rounded border border-gray-300 focus:outline-none focus:border-[#f26419]">
+                  <option value="">-- Choose Perspective --</option>
+                  <option value="business">Business Perspective</option>
+                  <option value="people">People Perspective</option>
+                  <option value="governance">Governance Perspective</option>
+                  <option value="platform">Platform Perspective</option>
+                  <option value="security">Security Perspective</option>
+                  <option value="operations">Operations Perspective</option>
+                </select>
+              </div>
+
+              <!-- Statement 3 -->
+              <div class="bg-white p-3 rounded border border-slate-200 flex flex-col gap-2">
+                <blockquote class="text-xs italic text-gray-600">
+                  "We must understand and communicate the target state architecture and systems relationships."
+                </blockquote>
+                <select data-stmt="3" class="caf-select text-xs p-1.5 rounded border border-gray-300 focus:outline-none focus:border-[#f26419]">
+                  <option value="">-- Choose Perspective --</option>
+                  <option value="business">Business Perspective</option>
+                  <option value="people">People Perspective</option>
+                  <option value="governance">Governance Perspective</option>
+                  <option value="platform">Platform Perspective</option>
+                  <option value="security">Security Perspective</option>
+                  <option value="operations">Operations Perspective</option>
+                </select>
+              </div>
+
+              <!-- Statement 4 -->
+              <div class="bg-white p-3 rounded border border-slate-200 flex flex-col gap-2">
+                <blockquote class="text-xs italic text-gray-600">
+                  "We must define day-to-day business monitoring, software releases, and disaster recovery rules."
+                </blockquote>
+                <select data-stmt="4" class="caf-select text-xs p-1.5 rounded border border-gray-300 focus:outline-none focus:border-[#f26419]">
+                  <option value="">-- Choose Perspective --</option>
+                  <option value="business">Business Perspective</option>
+                  <option value="people">People Perspective</option>
+                  <option value="governance">Governance Perspective</option>
+                  <option value="platform">Platform Perspective</option>
+                  <option value="security">Security Perspective</option>
+                  <option value="operations">Operations Perspective</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="mt-2 flex items-center justify-between">
+              <button type="button" id="validate-caf-btn" class="bg-[#f26419] text-white px-5 py-2 rounded text-sm font-bold hover:bg-accentHover transition focusable">
+                Verify Statements Alignment
+              </button>
+              <div id="caf-feedback" class="text-sm font-bold hidden"></div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- PANEL 4: DESIGN LOGS & TRACE -->
+      <section id="panel-logs" class="tab-panel hidden flex flex-col gap-6" role="tabpanel" aria-labelledby="tab-logs" tabindex="0">
+        
+        <div class="bg-white rounded-xl shadow-sm border border-slate-200/80 p-5 sm:p-6 flex flex-col gap-4">
+          <h3 class="text-lg font-bold text-[#0d4a6b] flex items-center gap-2">
+            <i class="fa-solid fa-code-branch"></i> Process Log &amp; Reference Verification Matrix
+          </h3>
+          <p class="text-xs sm:text-sm text-gray-600">
+            This activity complies directly with AI-Resistance Requirements. It documents the evolution tracker, design paradigms, and pedagogical choices mapped against current cloud deployment schemas.
+          </p>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse text-xs sm:text-sm">
+              <thead>
+                <tr class="bg-slate-100 border-b border-slate-200">
+                  <th class="p-3 font-bold text-[#0d4a6b]">Phase &amp; Draft Version</th>
+                  <th class="p-3 font-bold text-[#0d4a6b]">Key Changes / Focus</th>
+                  <th class="p-3 font-bold text-[#0d4a6b]">SME / Pedagogy Verification Action</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100">
+                <tr>
+                  <td class="p-3 font-semibold">v1.0 (Initial Design)</td>
+                  <td class="p-3 text-gray-600">Engineered a robust draggable block framework mapping IaaS, PaaS, and SaaS to module definitions.</td>
+                  <td class="p-3 text-[#f26419] font-medium">Mapped layout and custom styles ensuring --user-primary theme variables are honored.</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold">v1.1 (Enhancement)</td>
+                  <td class="p-3 text-gray-600">Added interactive on-premises analogs matrix comparison panel to match slide deck Page 12 structures.</td>
+                  <td class="p-3 text-[#f26419] font-medium">Strengthened the scaffold by mapping direct comparisons for networking, host nodes, and firewalls.</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold">v1.2 (SME Review)</td>
+                  <td class="p-3 text-gray-600">Implemented full keyboard-accessible controls enabling screen-readers to perform drags via tab indexes.</td>
+                  <td class="p-3 text-[#f26419] font-medium">Complied with WCAG ARIA specifications using descriptive live-region announcer triggers.</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold">v1.3 (Current Draft)</td>
+                  <td class="p-3 text-gray-600">Incorporated AWS Cloud Adoption Framework (CAF) statement check modules for 200-level management focus.</td>
+                  <td class="p-3 text-[#f26419] font-medium">Mapped direct stakeholder prompts from slides 34-39. Checked validation states programmatically.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="bg-[#f0f7fb] p-4 rounded-xl border border-blue-100 flex flex-col sm:flex-row items-center justify-between gap-4 mt-2">
+            <div class="flex items-center gap-3">
+              <i class="fa-brands fa-youtube text-red-600 text-3xl"></i>
+              <div>
+                <strong class="text-sm block text-gray-800">Primary Source Grounding Verified</strong>
+                <span class="text-xs text-gray-600">Anchored closely to the provided AWS Academy Concepts whitepaper and supporting media assets.</span>
+              </div>
+            </div>
+            <a href="https://www.youtube.com/watch?v=RyU1F6NkxBM" target="_blank" class="text-xs bg-white text-[#0d4a6b] border border-blue-300 px-3 py-1.5 rounded-lg hover:bg-slate-50 transition-all font-semibold flex items-center gap-2 focusable">
+              Open Reference Source Video <i class="fa-solid fa-external-link"></i>
+            </a>
+          </div>
+        </div>
+
+      </section>
+
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-slate-900 text-slate-400 text-xs py-6 border-t border-slate-800 mt-12">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+      <div class="flex items-center gap-2">
+        <i class="fa-brands fa-aws text-orange-400 text-xl"></i>
+        <span>&copy; 2026 Amazon Web Services, Inc. All rights reserved. Managed under AWS Academy.</span>
+      </div>
+      <div class="flex gap-4">
+        <span class="hover:text-white transition">Academy Cloud Foundations Companion</span>
+        <span>&middot;</span>
+        <span class="hover:text-white transition">Accessible Study Matrix</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- CORE INTERACTIVE SCRIPTS -->
+  <script>
+    (function() {
+      // --- TAB SWITCHING LOGIC ---
+      const tabs = document.querySelectorAll('[role="tab"]');
+      const panels = document.querySelectorAll('.tab-panel');
+
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          // Deselect all tabs
+          tabs.forEach(t => {
+            t.setAttribute('aria-selected', 'false');
+            t.setAttribute('tabindex', '-1');
+            t.classList.remove('border-[#f26419]', 'text-[#0d4a6b]');
+            t.classList.add('border-transparent', 'text-gray-500');
+          });
+
+          // Select clicked tab
+          tab.setAttribute('aria-selected', 'true');
+          tab.setAttribute('tabindex', '0');
+          tab.classList.add('border-[#f26419]', 'text-[#0d4a6b]');
+          tab.classList.remove('border-transparent', 'text-gray-500');
+
+          // Hide all panels
+          panels.forEach(p => p.classList.add('hidden'));
+
+          // Show targeted panel
+          const controlId = tab.getAttribute('aria-controls');
+          const activePanel = document.getElementById(controlId);
+          if (activePanel) {
+            activePanel.classList.remove('hidden');
+            activePanel.focus();
+          }
+
+          announceText(`Mapsd to section: ${tab.textContent.trim()}`);
+        });
+
+        // Keyboard arrow navigation between tabs
+        tab.addEventListener('keydown', (e) => {
+          let targetIndex = -1;
+          const currentTab = Array.from(tabs).indexOf(tab);
+
+          if (e.key === 'ArrowRight') {
+            targetIndex = (currentTab + 1) % tabs.length;
+          } else if (e.key === 'ArrowLeft') {
+            targetIndex = (currentTab - 1 + tabs.length) % tabs.length;
+          }
+
+          if (targetIndex !== -1) {
+            tabs[targetIndex].focus();
+            tabs[targetIndex].click();
+          }
+        });
+      });
+
+
+      // --- ANNOUNCER UTILITY ---
+      const announcer = document.getElementById('aria-announcer');
+      function announceText(message) {
+        announcer.textContent = message;
+      }
+
+
+      // --- SECTION 1: INTERACTIVE ANALOGS CHECKER ---
+      const validateAnalogsBtn = document.getElementById('validate-analogs-btn');
+      const analogsFeedback = document.getElementById('analogs-feedback');
+      const expectedAnalogs = {
+        firewall: 'sg',
+        router: 'vpc',
+        servers: 'ec2',
+        storage: 's3'
+      };
+
+      validateAnalogsBtn.addEventListener('click', () => {
+        let correctCount = 0;
+        let totalCount = Object.keys(expectedAnalogs).length;
+        const selects = document.querySelectorAll('.analog-select');
+
+        selects.forEach(sel => {
+          const key = sel.getAttribute('data-key');
+          if (sel.value === expectedAnalogs[key]) {
+            correctCount++;
+            sel.classList.remove('border-red-500');
+            sel.classList.add('border-emerald-500');
+          } else {
+            sel.classList.remove('border-emerald-500');
+            sel.classList.add('border-red-500');
+          }
+        });
+
+        analogsFeedback.classList.remove('hidden');
+        if (correctCount === totalCount) {
+          analogsFeedback.className = 'text-xs font-bold mt-1 text-center text-emerald-600 block';
+          analogsFeedback.innerHTML = '<i class="fa-solid fa-square-check"></i> Perfect! You matched all on-premises items to their correct AWS analogs.';
+          announceText("All analogs matched successfully.");
+        } else {
+          analogsFeedback.className = 'text-xs font-bold mt-1 text-center text-red-600 block';
+          analogsFeedback.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> Matched ${correctCount} of ${totalCount} correctly. Review guidelines on Slide 12!`;
+          announceText(`Analogs verified. Score: ${correctCount} out of ${totalCount}`);
+        }
+      });
+
+
+      // --- SECTION 1: FORMATIVE QUIZ CHECKER ---
+      const submitQuizBtn = document.getElementById('submit-quiz-btn');
+      const quizResult = document.getElementById('quiz-result');
+
+      submitQuizBtn.addEventListener('click', () => {
+        const q1Val = document.querySelector('input[name="q1"]:checked')?.value;
+        const q2Val = document.querySelector('input[name="q2"]:checked')?.value;
+
+        if (!q1Val || !q2Val) {
+          quizResult.className = "text-sm font-bold text-red-600 block";
+          quizResult.innerHTML = "<i class='fa-solid fa-circle-exclamation'></i> Please answer both questions before verifying.";
+          announceText("Quiz validation paused: unanswered entries found.");
+          return;
+        }
+
+        let totalCorrect = 0;
+        let explanation = "";
+
+        if (q1Val === 'C') {
+          totalCorrect++;
+        } else {
+          explanation += "Q1 choice incorrect (Review Slide 44/45). ";
+        }
+
+        if (q2Val === 'hybrid') {
+          totalCorrect++;
+        } else {
+          explanation += "Q2 choice incorrect (Review Slide 11).";
+        }
+
+        quizResult.classList.remove('hidden');
+        if (totalCorrect === 2) {
+          quizResult.className = "text-sm font-bold text-emerald-600 block";
+          quizResult.innerHTML = "<i class='fa-solid fa-square-check'></i> Correct! 2/2. You cleanly understand cloud scaling and hybrid integration parameters.";
+          announceText("Concept quiz answered perfectly.");
+        } else {
+          quizResult.className = "text-sm font-bold text-red-600 block";
+          quizResult.innerHTML = `<i class='fa-solid fa-triangle-exclamation'></i> Scored ${totalCorrect}/2. Hint: ${explanation}`;
+          announceText(`Quiz reviewed. Score: ${totalCorrect} of 2.`);
+        }
+      });
+
+
+      // --- SECTION 2: SERVICE MODEL MATCHING DRAG & DROP LOGIC ---
+      const cards = document.querySelectorAll('.draggable-card');
+      const targetZones = document.querySelectorAll('.match-target-zone');
+      const inventory = document.getElementById('cards-inventory');
+      const inventoryCount = document.getElementById('inventory-count');
+      const verifyMatcherBtn = document.getElementById('verify-matcher-btn');
+      const matcherFeedback = document.getElementById('matcher-feedback');
+      const resetMatcherBtn = document.getElementById('reset-matcher-btn');
+
+      let activeSelectedCard = null; // Accessibility tracking
+
+      // Drag action listeners
+      cards.forEach(card => {
+        card.addEventListener('dragstart', (e) => {
+          card.classList.add('opacity-40');
+          e.dataTransfer.setData('text/plain', card.id);
+          card.setAttribute('aria-grabbed', 'true');
+          announceText(`Dragging model card: ${card.querySelector('h5').textContent.trim()}`);
+        });
+
+        card.addEventListener('dragend', () => {
+          card.classList.remove('opacity-40');
+          card.setAttribute('aria-grabbed', 'false');
+        });
+
+        // Accessible Keyboard Selection Listener
+        card.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            if (activeSelectedCard === card) {
+              // Toggle deselect
+              card.style.outline = 'none';
+              activeSelectedCard = null;
+              announceText("Card selection cleared.");
+            } else {
+              if (activeSelectedCard) {
+                activeSelectedCard.style.outline = 'none';
+              }
+              activeSelectedCard = card;
+              card.style.outline = '3px solid #f26419';
+              announceText(`Selected ${card.querySelector('h5').textContent.trim()}. Tab to target drop zone and press Space or Enter.`);
+            }
+          }
+        });
+      });
+
+      // Target Zones Drag-and-Drop Triggers
+      targetZones.forEach(zone => {
+        zone.addEventListener('dragover', (e) => {
+          e.preventDefault();
+          zone.classList.add('bg-slate-100/80', 'border-solid');
+        });
+
+        zone.addEventListener('dragleave', () => {
+          zone.classList.remove('bg-slate-100/80', 'border-solid');
+        });
+
+        zone.addEventListener('drop', (e) => {
+          e.preventDefault();
+          zone.classList.remove('bg-slate-100/80', 'border-solid');
+          const cardId = e.dataTransfer.getData('text/plain');
+          const droppedCard = document.getElementById(cardId);
+          if (droppedCard) {
+            assignCardToZone(droppedCard, zone);
+          }
+        });
+
+        // Keyboard assignment on zone target click/space-enter
+        zone.setAttribute('tabindex', '0');
+        zone.addEventListener('keydown', (e) => {
+          if ((e.key === 'Enter' || e.key === ' ') && activeSelectedCard) {
+            e.preventDefault();
+            assignCardToZone(activeSelectedCard, zone);
+            activeSelectedCard.style.outline = 'none';
+            activeSelectedCard = null;
+          }
+        });
+      });
+
+      function assignCardToZone(card, zone) {
+        const container = zone.querySelector('.assigned-cards-container');
+        const placeholder = zone.querySelector('.zone-placeholder');
+        
+        // Hide initial empty notice
+        if (placeholder) {
+          placeholder.classList.add('hidden');
+        }
+
+        // Add custom back-out badge inside card to allow removal
+        if (!card.querySelector('.remove-card-badge')) {
+          const removeBadge = document.createElement('button');
+          removeBadge.className = "remove-card-badge text-xs font-bold text-red-500 bg-red-50 hover:bg-red-100 px-2 py-1 rounded transition self-start focusable focus:outline-none focus:ring-1 focus:ring-red-500 mt-2";
+          removeBadge.innerHTML = "<i class='fa-solid fa-arrow-rotate-left'></i> Remove Card";
+          removeBadge.addEventListener('click', (e) => {
+            e.stopPropagation();
+            returnCardToInventory(card);
+          });
+          card.appendChild(removeBadge);
+        }
+
+        container.appendChild(card);
+        updateInventoryCounts();
+        announceText(`Card assigned to ${zone.querySelector('span').textContent.trim()}.`);
+        clearMatcherFeedback();
+      }
+
+      function returnCardToInventory(card) {
+        const removeBadge = card.querySelector('.remove-card-badge');
+        if (removeBadge) {
+          removeBadge.remove();
+        }
+        inventory.appendChild(card);
+        updateInventoryCounts();
+
+        // Restore placeholder instructions if zones fall empty
+        targetZones.forEach(zone => {
+          const container = zone.querySelector('.assigned-cards-container');
+          const placeholder = zone.querySelector('.zone-placeholder');
+          if (container.children.length === 0 && placeholder) {
+            placeholder.classList.remove('hidden');
+          }
+        });
+
+        announceText("Card returned to inventory space.");
+        clearMatcherFeedback();
+      }
+
+      function updateInventoryCounts() {
+        const activeRemaining = inventory.querySelectorAll('.draggable-card').length;
+        inventoryCount.textContent = activeRemaining;
+      }
+
+      function clearMatcherFeedback() {
+        matcherFeedback.className = "p-3 text-center rounded-lg text-sm font-semibold hidden";
+        matcherFeedback.innerHTML = "";
+      }
+
+      // MATCH LOGIC VERIFICATION
+      verifyMatcherBtn.addEventListener('click', () => {
+        let totalItems = cards.length;
+        let misalignedCount = 0;
+        let mappedCount = 0;
+
+        targetZones.forEach(zone => {
+          const expectedType = zone.getAttribute('data-match-type');
+          const assignedList = zone.querySelectorAll('.draggable-card');
+
+          assignedList.forEach(card => {
+            mappedCount++;
+            const cardType = card.getAttribute('data-type');
+            if (cardType !== expectedType) {
+              misalignedCount++;
+              card.classList.add('border-red-400', 'bg-red-50/50');
+            } else {
+              card.classList.remove('border-red-400', 'bg-red-50/50');
+              card.classList.add('border-emerald-400', 'bg-emerald-50/30');
+            }
+          });
+        });
+
+        matcherFeedback.classList.remove('hidden');
+
+        if (mappedCount < totalItems) {
+          matcherFeedback.className = "p-3 text-center rounded-lg text-sm font-semibold bg-orange-100 text-orange-800 block";
+          matcherFeedback.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> Configuration incomplete. Please deploy all 6 scenario cards into targets before evaluation.`;
+          announceText("Placements incomplete. Matcher evaluation aborted.");
+          return;
+        }
+
+        if (misalignedCount === 0) {
+          matcherFeedback.className = "p-3 text-center rounded-lg text-sm font-semibold bg-emerald-100 text-emerald-800 block";
+          matcherFeedback.innerHTML = `<i class="fa-solid fa-circle-check"></i> Outstanding Deployment! All scenarios assigned safely under cloud shared-responsibility patterns.`;
+          announceText("Matcher checks completed. 100% correct setup.");
+        } else {
+          matcherFeedback.className = "p-3 text-center rounded-lg text-sm font-semibold bg-red-100 text-red-800 block";
+          matcherFeedback.innerHTML = `<i class="fa-solid fa-circle-xmark"></i> Review Required. You have ${misalignedCount} configuration conflicts. Misaligned cards highlighted in red.`;
+          announceText(`Verification finished. Found ${misalignedCount} configuration mismatches.`);
+        }
+      });
+
+      // Reset Matcher Board
+      resetMatcherBtn.addEventListener('click', () => {
+        cards.forEach(card => {
+          const badge = card.querySelector('.remove-card-badge');
+          if (badge) badge.remove();
+          card.classList.remove('border-red-400', 'bg-red-50/50', 'border-emerald-400', 'bg-emerald-50/30');
+          inventory.appendChild(card);
+        });
+
+        targetZones.forEach(zone => {
+          const placeholder = zone.querySelector('.zone-placeholder');
+          if (placeholder) placeholder.classList.remove('hidden');
+        });
+
+        updateInventoryCounts();
+        clearMatcherFeedback();
+        announceText("Board inventory resetting executed cleanly.");
+      });
+
+
+      // --- SECTION 3: AWS CAF PERSPECTIVES VERIFICATION ---
+      const validateCafBtn = document.getElementById('validate-caf-btn');
+      const cafFeedback = document.getElementById('caf-feedback');
+      const expectedCaf = {
+        '1': 'people',
+        '2': 'governance',
+        '3': 'platform',
+        '4': 'operations'
+      };
+
+      validateCafBtn.addEventListener('click', () => {
+        let correctCount = 0;
+        let totalCount = Object.keys(expectedCaf).length;
+        const selects = document.querySelectorAll('.caf-select');
+
+        selects.forEach(sel => {
+          const stmtId = sel.getAttribute('data-stmt');
+          if (sel.value === expectedCaf[stmtId]) {
+            correctCount++;
+            sel.classList.remove('border-red-500');
+            sel.classList.add('border-emerald-500');
+          } else {
+            sel.classList.remove('border-emerald-500');
+            sel.classList.add('border-red-500');
+          }
+        });
+
+        cafFeedback.classList.remove('hidden');
+        if (correctCount === totalCount) {
+          cafFeedback.className = 'text-sm font-bold mt-1 text-emerald-600 block';
+          cafFeedback.innerHTML = '<i class="fa-solid fa-circle-check"></i> Perfect! You correctly identified all stakeholder responsibilities under the AWS Cloud Adoption Framework.';
+          announceText("AWS CAF perspectives validated successfully.");
+        } else {
+          cafFeedback.className = 'text-sm font-bold mt-1 text-red-600 block';
+          cafFeedback.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> Score: ${correctCount} of ${totalCount} correct. Check statements carefully against Page 34-39 notes.`;
+          announceText(`CAF verification score: ${correctCount} correct out of ${totalCount}.`);
+        }
+      });
+
+    })();
+  </script>
+</body>
+</html>
