@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud Fundamentals with AWS</title>
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        aws: {
+                            dark: '#232F3E',
+                            orange: '#FF9900',
+                            blue: '#007EB9',
+                            light: '#F2F8FD'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom styles for animations and specific ADA focus states */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* ADA Focus Rings - Ensuring high visibility for keyboard users */
+        *:focus-visible {
+            outline: 3px solid #FF9900;
+            outline-offset: 2px;
+            border-radius: 4px;
+        }
+        /* Hide element visually but keep for screen readers */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans leading-relaxed">
+
+    <!-- Screen Reader Announcement Region for Quiz Feedback -->
+    <div aria-live="polite" id="sr-announcer" class="sr-only"></div>
+
+    <!-- Header Section with Cloud Image Background -->
+    <header class="relative bg-aws-dark text-white py-16 px-4 shadow-lg bg-cover bg-center" style="background-image: linear-gradient(rgba(35, 47, 62, 0.75), rgba(35, 47, 62, 0.95)), url('http://googleusercontent.com/image_collection/image_collection/image_retrieval/10647317254661234996');">
+        <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-6 relative z-10">
+            <!-- Professor SVG Avatar -->
+            <div class="w-24 h-24 bg-white rounded-full flex items-center justify-center shadow-inner flex-shrink-0 text-aws-dark" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M2 21a8 8 0 0 1 13.292-6"></path>
+                    <circle cx="10" cy="8" r="5"></circle>
+                    <path d="M19 16v6"></path>
+                    <path d="M22 19h-6"></path>
+                </svg>
+            </div>
+            <div class="text-center md:text-left">
+                <h1 class="text-3xl md:text-5xl font-bold mb-3 text-white drop-shadow-md">Cloud Fundamentals with AWS</h1>
+                <p class="text-lg md:text-xl text-gray-200 drop-shadow-sm">I'm Professor Karen. Today, we're conquering <strong class="text-aws-orange">AWS Storage Types</strong> for your Cloud Practitioner exam.</p>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 py-10">
+        
+        <!-- Introduction Section -->
+        <section aria-labelledby="intro-heading" class="mb-12 bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+            <h2 id="intro-heading" class="text-2xl font-bold text-aws-blue mb-4">Where Does the Cloud Put Its Stuff?</h2>
+            <p class="mb-4 text-lg">
+                When you save a file on your laptop, it goes to your hard drive. But in the cloud, we have different <em>types</em> of storage depending on what we're saving, how often we need it, and how fast we need to get it back. 
+            </p>
+            <p class="text-lg">
+                Let's review the "Big Six" storage options you need to know for the AWS Certified Cloud Practitioner exam. Review my study cards below, and then test your knowledge in the Scenario Challenge!
+            </p>
+        </section>
+
+        <!-- Study Cards Section -->
+        <section aria-labelledby="study-heading" class="mb-16">
+            <h2 id="study-heading" class="text-2xl font-bold text-aws-dark mb-6 border-b-2 border-aws-orange pb-2">Study Cards</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- Card 1: S3 -->
+                <article class="bg-white rounded-xl shadow-md p-6 border-t-4 border-aws-blue transition-transform duration-300 card-hover focus-within:ring-4 focus-within:ring-aws-orange" tabindex="0">
+                    <div class="flex items-center gap-3 mb-3">
+                        <svg class="w-8 h-8 text-aws-blue" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                        <h3 class="text-xl font-bold text-aws-dark">Amazon S3</h3>
+                    </div>
+                    <p class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-2">Simple Storage Service</p>
+                    <p class="mb-4"><strong>Object Storage.</strong> Think of it as an infinite, flat warehouse. Every file (object) gets a unique URL. Great for backups, images, and static websites.</p>
+                    <div class="bg-aws-light p-3 rounded text-sm text-aws-dark font-medium">
+                        💡 Analogy: A massive valet parking lot where every car gets a ticket.
+                    </div>
+                </article>
+
+                <!-- Card 2: EBS -->
+                <article class="bg-white rounded-xl shadow-md p-6 border-t-4 border-aws-blue transition-transform duration-300 card-hover focus-within:ring-4 focus-within:ring-aws-orange" tabindex="0">
+                    <div class="flex items-center gap-3 mb-3">
+                        <svg class="w-8 h-8 text-aws-blue" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
+                        <h3 class="text-xl font-bold text-aws-dark">Amazon EBS</h3>
+                    </div>
+                    <p class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-2">Elastic Block Store</p>
+                    <p class="mb-4"><strong>Block Storage.</strong> High-performance storage attached to a <em>single</em> EC2 instance (virtual server). Perfect for databases and operating systems.</p>
+                    <div class="bg-aws-light p-3 rounded text-sm text-aws-dark font-medium">
+                        💡 Analogy: The C: Drive or internal hard drive plugged into your laptop.
+                    </div>
+                </article>
+
+                <!-- Card 3: EFS -->
+                <article class="bg-white rounded-xl shadow-md p-6 border-t-4 border-aws-blue transition-transform duration-300 card-hover focus-within:ring-4 focus-within:ring-aws-orange" tabindex="0">
+                    <div class="flex items-center gap-3 mb-3">
+                        <svg class="w-8 h-8 text-aws-blue" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                        <h3 class="text-xl font-bold text-aws-dark">Amazon EFS</h3>
+                    </div>
+                    <p class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-2">Elastic File System</p>
+                    <p class="mb-4"><strong>File Storage.</strong> Scalable storage that can be attached to <em>multiple</em> EC2 Linux instances simultaneously. Scales automatically as you add files.</p>
+                    <div class="bg-aws-light p-3 rounded text-sm text-aws-dark font-medium">
+                        💡 Analogy: A shared office network drive that everyone's computer connects to.
+                    </div>
+                </article>
+
+                <!-- Card 4: S3 Glacier -->
+                <article class="bg-white rounded-xl shadow-md p-6 border-t-4 border-gray-400 transition-transform duration-300 card-hover focus-within:ring-4 focus-within:ring-aws-orange" tabindex="0">
+                    <div class="flex items-center gap-3 mb-3">
+                        <svg class="w-8 h-8 text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 2 22 22 22"></polygon><path d="m12 2 4.5 9"></path><path d="M12 2v20"></path></svg>
+                        <h3 class="text-xl font-bold text-aws-dark">S3 Glacier</h3>
+                    </div>
+                    <p class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-2">Cold Archive Storage</p>
+                    <p class="mb-4">A storage class of S3 designed for long-term archiving and data compliance. Extremely cheap, but retrieving data can take minutes to hours.</p>
+                    <div class="bg-gray-100 p-3 rounded text-sm text-aws-dark font-medium">
+                        💡 Analogy: A deep freeze in your basement or a bank vault. Hard to get to, but safe.
+                    </div>
+                </article>
+
+                <!-- Card 5: Storage Gateway -->
+                <article class="bg-white rounded-xl shadow-md p-6 border-t-4 border-purple-500 transition-transform duration-300 card-hover focus-within:ring-4 focus-within:ring-aws-orange" tabindex="0">
+                    <div class="flex items-center gap-3 mb-3">
+                        <svg class="w-8 h-8 text-purple-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path><path d="M12 8v8"></path><path d="m8 12 4-4 4 4"></path></svg>
+                        <h3 class="text-xl font-bold text-aws-dark">Storage Gateway</h3>
+                    </div>
+                    <p class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-2">Hybrid Cloud Storage</p>
+                    <p class="mb-4">Connects your on-premise, physical servers to AWS cloud storage. It bridges the gap between your local office and the AWS Cloud.</p>
+                    <div class="bg-purple-50 p-3 rounded text-sm text-aws-dark font-medium">
+                        💡 Analogy: A magic portal connecting your office basement to the AWS cloud.
+                    </div>
+                </article>
+
+                <!-- Card 6: Snow Family -->
+                <article class="bg-white rounded-xl shadow-md p-6 border-t-4 border-teal-500 transition-transform duration-300 card-hover focus-within:ring-4 focus-within:ring-aws-orange" tabindex="0">
+                    <div class="flex items-center gap-3 mb-3">
+                        <svg class="w-8 h-8 text-teal-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="8" width="18" height="12" rx="2"></rect><path d="M7 8v-2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v2"></path><line x1="12" y1="11" x2="12" y2="17"></line><line x1="9" y1="14" x2="15" y2="14"></line></svg>
+                        <h3 class="text-xl font-bold text-aws-dark">Snow Family</h3>
+                    </div>
+                    <p class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-2">Physical Transfer</p>
+                    <p class="mb-4">Physical devices (Snowcone, Snowball, Snowmobile) used to securely migrate petabytes of data into AWS without relying on slow internet speeds.</p>
+                    <div class="bg-teal-50 p-3 rounded text-sm text-aws-dark font-medium">
+                        💡 Analogy: Hiring a fleet of armored trucks to move your filing cabinets.
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- Interactive Challenge Section -->
+        <section id="interactive" aria-labelledby="challenge-heading" class="bg-aws-dark text-white rounded-2xl p-6 md:p-10 shadow-xl">
+            <div class="text-center mb-8">
+                <h2 id="challenge-heading" class="text-3xl font-bold mb-3 text-aws-orange">The Architecture Challenge</h2>
+                <p class="text-lg text-gray-300">Read the client scenario below and select the correct AWS storage service. Let's see what you've learned!</p>
+            </div>
+
+            <!-- Quiz Container -->
+            <div id="quiz-container" class="bg-white text-gray-800 rounded-xl p-6 md:p-8 max-w-3xl mx-auto shadow-inner relative min-h-[350px] flex flex-col justify-center">
+                
+                <!-- Start Screen -->
+                <div id="start-screen" class="text-center fade-in">
+                    <svg class="w-16 h-16 mx-auto text-aws-blue mb-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                    <h3 class="text-2xl font-bold mb-4">Ready for the test?</h3>
+                    <button id="start-btn" aria-label="Start the scenario challenge" class="bg-aws-orange hover:bg-orange-500 text-white font-bold py-3 px-8 rounded-lg text-lg transition-colors focus:ring-4 focus:ring-aws-blue">
+                        Start Challenge
+                    </button>
+                </div>
+
+                <!-- Question Screen (Hidden initially) -->
+                <div id="question-screen" class="hidden fade-in w-full">
+                    <div class="flex justify-between items-center mb-4">
+                        <span id="progress-text" class="text-sm font-bold text-gray-500" aria-live="polite">Question 1 of 5</span>
+                        <span id="score-text" class="text-sm font-bold text-aws-blue">Score: 0</span>
+                    </div>
+                    
+                    <!-- Progress Bar -->
+                    <div class="w-full bg-gray-200 rounded-full h-2.5 mb-6" aria-hidden="true">
+                        <div id="progress-bar" class="bg-aws-orange h-2.5 rounded-full transition-all duration-300" style="width: 0%"></div>
+                    </div>
+
+                    <h3 id="question-text" class="text-xl md:text-2xl font-bold text-aws-dark mb-6 leading-tight">
+                        <!-- Question injected here -->
+                    </h3>
+
+                    <div id="options-container" class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4" role="group" aria-label="Answer options">
+                        <!-- Buttons injected here -->
+                    </div>
+
+                    <!-- Feedback Area -->
+                    <div id="feedback-area" class="hidden rounded-lg p-4 mt-4 font-medium text-lg text-center" aria-live="assertive">
+                        <!-- Feedback injected here -->
+                    </div>
+                    
+                    <button id="next-btn" class="hidden mt-6 w-full bg-aws-dark hover:bg-gray-800 text-white font-bold py-3 px-6 rounded-lg transition-colors focus:ring-4 focus:ring-aws-orange">
+                        Next Scenario &rarr;
+                    </button>
+                </div>
+
+                <!-- Result Screen (Hidden initially) -->
+                <div id="result-screen" class="hidden text-center fade-in">
+                    <div id="result-icon" class="mb-4 flex justify-center"></div>
+                    <h3 class="text-3xl font-bold mb-2">Challenge Complete!</h3>
+                    <p id="final-score" class="text-xl mb-6 text-gray-600"></p>
+                    <p id="final-message" class="text-lg font-medium text-aws-dark mb-8"></p>
+                    <button id="restart-btn" class="bg-aws-blue hover:bg-blue-600 text-white font-bold py-3 px-8 rounded-lg text-lg transition-colors focus:ring-4 focus:ring-aws-orange">
+                        Try Again
+                    </button>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-aws-dark text-white text-center py-6 mt-12 border-t-4 border-aws-orange">
+        <p>&copy; 2026 Cloud Fundamentals with AWS | Built for Accessibility and Engagement</p>
+    </footer>
+
+    <!-- Interactive Logic -->
+    <script>
+        // --- Quiz Data ---
+        const quizData = [
+            {
+                question: "Client A: 'I need to host static HTML files, images, and videos for my company's public website. It needs to be accessible via URL.'",
+                options: ["Amazon EBS", "Amazon S3", "Amazon EFS", "S3 Glacier"],
+                correct: 1,
+                explanation: "Correct! Amazon S3 is object storage designed perfectly for web assets and static websites."
+            },
+            {
+                question: "Client B: 'I am running a large database on a single EC2 virtual server. I need a fast, attached hard drive that won't lose data if the server reboots.'",
+                options: ["Amazon EFS", "Storage Gateway", "AWS Snowball", "Amazon EBS"],
+                correct: 3,
+                explanation: "Exactly! Amazon EBS provides persistent block-level storage volumes for use with individual EC2 instances."
+            },
+            {
+                question: "Client C: 'We have 10 years of old legal documents. By law, we must keep them, but we will probably never look at them again. We need the cheapest option possible.'",
+                options: ["S3 Glacier", "Amazon S3", "Amazon EBS", "AWS Snowmobile"],
+                correct: 0,
+                explanation: "Nailed it! S3 Glacier is highly secure, durable, and extremely low-cost storage for data archiving."
+            },
+            {
+                question: "Client D: 'I have a cluster of 5 Linux EC2 instances. They all need to read and write to the exact same file directory at the same time.'",
+                options: ["Amazon S3", "Amazon EFS", "Amazon EBS", "Storage Gateway"],
+                correct: 1,
+                explanation: "Great job! Amazon EFS provides a simple, scalable, fully managed elastic file system for use with AWS Cloud services (specifically Linux)."
+            },
+            {
+                question: "Client E: 'Our on-premise data center is shutting down. We have 50 Petabytes of data. Uploading it over our internet connection would take 3 years.'",
+                options: ["Storage Gateway", "AWS Snow Family", "Amazon S3", "Amazon EBS"],
+                correct: 1,
+                explanation: "Spot on! The AWS Snow Family (like Snowball or Snowmobile) uses physical devices to migrate massive amounts of data offline."
+            }
+        ];
+
+        // --- State Variables ---
+        let currentQuestionIndex = 0;
+        let score = 0;
+
+        // --- DOM Elements ---
+        const startScreen = document.getElementById('start-screen');
+        const questionScreen = document.getElementById('question-screen');
+        const resultScreen = document.getElementById('result-screen');
+        
+        const startBtn = document.getElementById('start-btn');
+        const restartBtn = document.getElementById('restart-btn');
+        const nextBtn = document.getElementById('next-btn');
+        
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        const progressText = document.getElementById('progress-text');
+        const progressBar = document.getElementById('progress-bar');
+        const scoreText = document.getElementById('score-text');
+        const feedbackArea = document.getElementById('feedback-area');
+        const srAnnouncer = document.getElementById('sr-announcer');
+
+        // --- Functions ---
+
+        function initQuiz() {
+            currentQuestionIndex = 0;
+            score = 0;
+            startScreen.classList.add('hidden');
+            resultScreen.classList.add('hidden');
+            questionScreen.classList.remove('hidden');
+            loadQuestion();
+            srAnnouncer.textContent = "The challenge has started. Question 1.";
+        }
+
+        function loadQuestion() {
+            // Reset feedback and next button
+            feedbackArea.classList.add('hidden');
+            feedbackArea.classList.remove('bg-green-100', 'text-green-800', 'bg-red-100', 'text-red-800');
+            nextBtn.classList.add('hidden');
+            
+            const currentQ = quizData[currentQuestionIndex];
+            
+            // Update UI
+            questionText.textContent = currentQ.question;
+            progressText.textContent = `Scenario ${currentQuestionIndex + 1} of ${quizData.length}`;
+            scoreText.textContent = `Score: ${score}`;
+            
+            // Update Progress bar
+            const progressPercent = (currentQuestionIndex / quizData.length) * 100;
+            progressBar.style.width = `${progressPercent}%`;
+
+            // Clear old options
+            optionsContainer.innerHTML = '';
+
+            // Generate option buttons
+            currentQ.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.textContent = option;
+                // Styling the button for high contrast and clear focus states
+                button.className = 'w-full text-left p-4 rounded-lg border-2 border-gray-300 bg-white hover:bg-aws-light hover:border-aws-blue focus:outline-none focus:ring-4 focus:ring-aws-orange transition-all font-semibold text-gray-700 text-lg';
+                button.setAttribute('aria-label', `Select ${option}`);
+                
+                button.addEventListener('click', () => handleAnswer(index, button));
+                optionsContainer.appendChild(button);
+            });
+
+            // Focus the first option for keyboard users
+            setTimeout(() => {
+                const firstBtn = optionsContainer.querySelector('button');
+                if(firstBtn) firstBtn.focus();
+            }, 100);
+        }
+
+        function handleAnswer(selectedIndex, selectedButton) {
+            // Disable all buttons to prevent multiple clicks
+            const allButtons = optionsContainer.querySelectorAll('button');
+            allButtons.forEach(btn => btn.disabled = true);
+
+            const currentQ = quizData[currentQuestionIndex];
+            const isCorrect = selectedIndex === currentQ.correct;
+
+            feedbackArea.classList.remove('hidden');
+
+            if (isCorrect) {
+                score++;
+                scoreText.textContent = `Score: ${score}`;
+                selectedButton.classList.replace('border-gray-300', 'border-green-500');
+                selectedButton.classList.replace('hover:border-aws-blue', 'border-green-500');
+                selectedButton.classList.add('bg-green-50', 'text-green-900');
+                
+                feedbackArea.classList.add('bg-green-100', 'text-green-800');
+                feedbackArea.innerHTML = `<span class="font-bold">Correct!</span> ${currentQ.explanation}`;
+                srAnnouncer.textContent = `Correct. ${currentQ.explanation}`;
+            } else {
+                selectedButton.classList.replace('border-gray-300', 'border-red-500');
+                selectedButton.classList.replace('hover:border-aws-blue', 'border-red-500');
+                selectedButton.classList.add('bg-red-50', 'text-red-900');
+                
+                // Highlight the correct one
+                const correctButton = allButtons[currentQ.correct];
+                correctButton.classList.replace('border-gray-300', 'border-green-500');
+                correctButton.classList.add('bg-green-50');
+
+                feedbackArea.classList.add('bg-red-100', 'text-red-800');
+                feedbackArea.innerHTML = `<span class="font-bold">Incorrect.</span> ${currentQ.explanation}`;
+                srAnnouncer.textContent = `Incorrect. ${currentQ.explanation}`;
+            }
+
+            nextBtn.classList.remove('hidden');
+            nextBtn.focus(); // Shift focus to next button for easy keyboard navigation
+        }
+
+        function handleNext() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < quizData.length) {
+                loadQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            questionScreen.classList.add('hidden');
+            resultScreen.classList.remove('hidden');
+            
+            const finalScoreEl = document.getElementById('final-score');
+            const finalMessageEl = document.getElementById('final-message');
+            const resultIcon = document.getElementById('result-icon');
+            
+            finalScoreEl.textContent = `You scored ${score} out of ${quizData.length}`;
+            
+            let message = "";
+            let iconSvg = "";
+
+            if (score === quizData.length) {
+                message = "Outstanding! You are definitely ready for the Cloud Practitioner exam!";
+                iconSvg = `<svg class="w-20 h-20 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>`;
+            } else if (score >= 3) {
+                message = "Good job! Review the study cards one more time and you'll have it mastered.";
+                iconSvg = `<svg class="w-20 h-20 text-aws-blue" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M8 14s1.5 2 4 2 4-2 4-2"></path><line x1="9" y1="9" x2="9.01" y2="9"></line><line x1="15" y1="9" x2="15.01" y2="9"></line></svg>`;
+            } else {
+                message = "It's a tricky topic! Read the analogies carefully and try the challenge again.";
+                iconSvg = `<svg class="w-20 h-20 text-aws-orange" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>`;
+            }
+
+            finalMessageEl.textContent = message;
+            resultIcon.innerHTML = iconSvg;
+            
+            srAnnouncer.textContent = `Challenge complete. You scored ${score} out of ${quizData.length}. ${message}`;
+            restartBtn.focus();
+        }
+
+        // --- Event Listeners ---
+        startBtn.addEventListener('click', initQuiz);
+        nextBtn.addEventListener('click', handleNext);
+        restartBtn.addEventListener('click', initQuiz);
+
+    </script>
+</body>
+</html>
+```
